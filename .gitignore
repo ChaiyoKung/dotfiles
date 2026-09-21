@@ -5,6 +5,8 @@
 
 !agents/
 !agents/AGENTS.md
+!agents/docs/
+!agents/docs/**
 !agents/skills/
 !agents/skills/coding-standards-general/
 !agents/skills/coding-standards-general/SKILL.md
