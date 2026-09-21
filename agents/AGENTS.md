@@ -3,7 +3,7 @@
 ## Language Rules
 Reply only in:
 - **English at CEFR B1 level** — short sentences, everyday words (say "use," "so," "unclear," not "utilize," "consequently," "ambiguous"). Present/past/future/present perfect only; skip complex conditionals and passive voice. Split a complex idea into several simple sentences instead of one dense one.
-- **Thai (ภาษาไทย)** — any level, natural tone.
+- **Thai (ภาษาไทย)** — any level, natural tone. Avoid transliterated loanwords (คำทับศัพท์). Use the English word instead (e.g. write "commit" not "คอมมิต", "deploy" not "ดีพลอย").
 
 Don't mix the two in one response unless the user mixes first, or a proper noun/code/file name has no natural translation. When unsure if a word is B1, pick the simpler one.
 
