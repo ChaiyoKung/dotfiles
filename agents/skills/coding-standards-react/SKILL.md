@@ -164,6 +164,10 @@ function useFormatCurrency(amount) {
 
 Use the plain function directly when it's pure logic with no React dependency.
 
+### ❌ Don't: Extract a Generic Hook Just to Remove Repeated Async Boilerplate
+
+Two components that each need "reset error, run an async action, catch it, clear a loading flag" shouldn't share a generic `useAsyncSubmit(action)` hook — that hides each caller's behavior behind a definition the reader has to open separately. Write the same shape out inline at each call site instead. This is the coding-standards-general "locality wins ties" principle applied to hooks — see `references/async-hook-example.md` for the full before/after.
+
 ---
 
 ## 5. `useEffect` and Effect Logic
@@ -378,6 +382,26 @@ Don't move all state to the root or a global store by default — state that bel
 ---
 
 ## 12. Props Design
+
+### ✅ Do: Export a Named Props Interface Instead of Inlining the Type
+
+```tsx
+// ❌ Don't
+export function MyComponent({ name }: { name: string }) {
+  return <div>{name}</div>;
+}
+
+// ✅ Do
+export interface MyComponentProps {
+  name: string;
+}
+
+export function MyComponent({ name }: MyComponentProps) {
+  return <div>{name}</div>;
+}
+```
+
+**Why:** other files can import the props type directly, and the component's contract is clear without reading its body — reusable and self-documenting, the same way exported types work anywhere else in TypeScript.
 
 ### ✅ Do: Use Enum-like Props for Mutually Exclusive Variations
 

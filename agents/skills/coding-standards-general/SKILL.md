@@ -15,7 +15,7 @@ Basic habits that make code easy to read and clear on its own.
 - **Same Code Style:** Keep the same format (indent, structure) across the whole project.
 - **KISS (Keep It Simple, Stupid):** Keep the logic simple. Don't add anything you don't need.
 - **DRY (Don't Repeat Yourself), but readability first:** Reducing duplicate code is good, but easy-to-read code for humans matters more. Duplicated code that stays clear is fine. Don't force a shared function if it makes the code harder to read.
-- **No Magic Values:** Move strange numbers or strings (Magic Numbers/Strings) into constants or enums.
+- **No Magic Values:** Move strange numbers or strings (Magic Numbers/Strings) into constants or enums. This doesn't apply to a literal that's already self-explanatory and only repeats once or twice (e.g. a short `"draft:"` prefix used in two functions) — extract it once it either repeats enough to risk drifting, or its meaning isn't obvious from the literal itself.
 - **Useful Comments:** Comments should explain **"why"** you chose an approach, not **"what"** the code does.
 - **Boy Scout Rule:** "Leave the code cleaner than you found it." Clean up old code when you get the chance.
 
@@ -234,6 +234,70 @@ function renderList<T>(items: T[], { render, onClick, empty }: RenderListCore<T>
 
 **Why it's better:** wrap per real use case (`renderUserList`, `renderProductList`) and keep the shared `renderList` core limited to the options actually in use — don't pre-build for a future that hasn't happened yet (YAGNI).
 
+#### Locality Wins Ties
+
+Even when code is genuinely duplicated — same shape, same reason to change — there's still a cost on the other side: an abstraction that a reader has to open and mentally re-substitute values into, just to know what one call site does. When the choice is close, prefer whichever version lets someone understand a single call site by reading only that call site.
+
+##### ❌ Don't: Collapse a Small, Fixed Set of Cases into a Lookup Table
+
+```typescript
+const SHIPPING_RULES: Record<string, { carrier: string; baseFee: number }> = {
+  domestic: { carrier: "local-post", baseFee: 3.5 },
+  international: { carrier: "global-freight", baseFee: 20 },
+};
+
+const rule = SHIPPING_RULES[zone];
+const fee = rule.baseFee + weightSurcharge(weightKg, rule.carrier);
+```
+
+**Why it's bad:** knowing what a domestic shipment costs means resolving `SHIPPING_RULES["domestic"]`, then feeding two of its fields back into `weightSurcharge`. That's an extra hop for something that isn't more correct — just shorter.
+
+##### ✅ Do: Write Out Each Case When There Are Only a Few
+
+```typescript
+if (zone === "domestic") {
+  return { carrier: "local-post", fee: 3.5 + weightSurcharge(weightKg, "local-post") };
+} else if (zone === "international") {
+  return { carrier: "global-freight", fee: 20 + weightSurcharge(weightKg, "global-freight") };
+}
+```
+
+**Why it's better:** the `if` branch shows carrier, fee, and surcharge in one place — no second lookup needed. Reach for a table instead once the set of cases is genuinely large or changes at runtime, not just because there's more than one of them.
+
+##### ❌ Don't: Fold a Dozen Call Sites Through a Generic Wrapper
+
+```typescript
+function withApiErrors<In, Out>(handler: (input: In) => Out) {
+  return (input: In): Out => {
+    try {
+      return handler(input);
+    } catch (error) {
+      return toErrorResponse(error);
+    }
+  };
+}
+
+export const getInvoice = withApiErrors(invoiceService.getInvoice);
+```
+
+**Why it's bad:** to know how `getInvoice` handles a failure, a reader has to also open `withApiErrors`. This holds even at a dozen-plus repetitions — the repeat count doesn't change whether the abstraction stays legible.
+
+##### ✅ Do: Write the try/catch at Each Call Site
+
+```typescript
+export function getInvoice(id: string) {
+  try {
+    return invoiceService.getInvoice(id);
+  } catch (error) {
+    return toErrorResponse(error);
+  }
+}
+```
+
+**Why it's better:** the error handling for `getInvoice` is visible in `getInvoice` itself. A little repeated boilerplate is a fair trade for not needing a second file to understand the first.
+
+More patterns like this (several explicit functions vs. one over-parameterized function, and when a repeated literal is fine to leave un-extracted) are in `references/locality-over-dry.md` — read it when you're deciding whether to fold near-identical functions or handlers into a shared one.
+
 #### Decision Table
 
 | Question                                                                           | If yes                                                | If no                                                     |
@@ -242,6 +306,7 @@ function renderList<T>(items: T[], { render, onClick, empty }: RenderListCore<T>
 | Is it understandable within ~30 seconds on first read?                             | Passes                                                | Refactor for readability, even at the cost of duplication |
 | Does understanding one piece of logic require jumping across more than 2 files?    | Sign of over-abstraction                              | Fine                                                      |
 | Does the function take more than 1-2 boolean flags to fork its behavior?           | Risk of over-abstraction — split the function instead | Fine                                                      |
+| Does using the shared version mean opening a second definition and mentally substituting parameters back in? | Locality wins — keep it explicit, even if that means duplication | Fine to share |
 
 ---
 
