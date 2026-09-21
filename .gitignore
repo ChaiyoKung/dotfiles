@@ -6,8 +6,13 @@
 !agents/
 !agents/AGENTS.md
 !agents/skills/
+!agents/skills/coding-standards-general/
+!agents/skills/coding-standards-general/SKILL.md
+!agents/skills/coding-standards-react/
+!agents/skills/coding-standards-react/SKILL.md
+!agents/skills/coding-standards-typescript/
+!agents/skills/coding-standards-typescript/SKILL.md
 !agents/.skill-lock.json
-!agents/docs
 
 !claude/
 !claude/CLAUDE.md

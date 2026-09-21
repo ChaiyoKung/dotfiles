@@ -1,3 +1,8 @@
+---
+name: coding-standards-general
+description: 'Use this whenever you are about to write new code, edit existing code, fix a bug, add a test, or review a diff or PR, in any programming language - even if the user never says "coding standards" or "style guide." Applies general principles: clear naming, DRY vs readability tradeoffs (rule of three), no magic numbers/strings, guard clauses, explicit error handling, and F.I.R.S.T./AAA test structure. Pair with the coding-standards-react / coding-standards-typescript skills when the language matches.'
+---
+
 # General Coding Standards
 
 These principles apply regardless of programming language. Code examples below use TypeScript syntax for illustration only — the underlying principle applies to any language.

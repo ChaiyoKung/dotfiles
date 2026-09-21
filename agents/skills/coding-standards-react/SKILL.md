@@ -1,6 +1,11 @@
+---
+name: coding-standards-react
+description: 'Use this whenever writing, editing, or reviewing a React component, hook, or JSX/TSX file - e.g. "add a component," "fix this hook," "why does this re-render," "split this component" - even if the user never says "React standards." Covers file/folder structure by feature, component size and responsibility, composition vs prop-explosion, custom hooks, useEffect discipline and dependency arrays, rules of hooks, compound components, container/presentational split, state management and lifting state, props design, list keys, controlled vs uncontrolled inputs, performance optimization, and behavior-based testing. Pair with the coding-standards-general and coding-standards-typescript skills for full coverage.'
+---
+
 # React Coding Standards
 
-React-specific patterns and hygiene. For naming, KISS/DRY, error handling, and testing principles that apply to any language, see [general-coding-standards.md](general-coding-standards.md); for TypeScript-specific rules, see [typescript-coding-standards.md](typescript-coding-standards.md).
+React-specific patterns and hygiene. For naming, KISS/DRY, error handling, and testing principles that apply to any language, use the coding-standards-general skill; for TypeScript-specific rules, use the coding-standards-typescript skill.
 
 > **Core principle:** Don't reach for a pattern because it's considered best practice. Start from "what problem does this component have?" — not "which pattern should this use?" — then pick the pattern that solves that problem. If there's no problem, no pattern is needed.
 
@@ -497,7 +502,7 @@ Prefer user-oriented APIs (`userEvent`) when available.
 Don't start with "which design pattern should this component use?" Start with "what problem does this component have?", then match the pattern to the problem:
 
 | Problem                                              | Pattern to Consider            |
-| ----------------------------------------------------- | ------------------------------ |
+| ----------------------------------------------------- | ------------------------------- |
 | Need to customize UI structure or content            | **Composition**                |
 | Reusable stateful behavior or side effects           | **Custom Hooks**               |
 | Multiple related components sharing state/behavior   | **Compound Components**        |

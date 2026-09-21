@@ -1,6 +1,11 @@
+---
+name: coding-standards-typescript
+description: 'Use this whenever writing or editing TypeScript (.ts/.tsx) code, or setting up/adjusting eslint.config.js, .prettierrc, tsconfig.json, or Husky/lint-staged git hooks - even if the user never says "TypeScript standards." Covers naming casing conventions (PascalCase for types/interfaces/classes, camelCase for variables/functions, UPPER_SNAKE_CASE for true constants) and a recommended ESLint flat config + Prettier setup. Pair with the coding-standards-general skill for naming intent, DRY, and error-handling principles that apply beyond TypeScript, and coding-standards-react for React/JSX-specific patterns.'
+---
+
 # TypeScript Coding Standards
 
-Language-specific rules for TypeScript projects. For naming intent, KISS, DRY, error handling, and testing principles that apply to any language, see [general-coding-standards.md](general-coding-standards.md).
+Language-specific rules for TypeScript projects. For naming intent, KISS, DRY, error handling, and testing principles that apply to any language, use the coding-standards-general skill.
 
 ## 1. Naming Casing
 
