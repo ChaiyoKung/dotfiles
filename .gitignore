@@ -1,0 +1,14 @@
+# Ignore everything by default, then allow only the files we want to track.
+# This keeps new files out of git unless we add them here on purpose.
+*
+!.gitignore
+
+!agents/
+!agents/AGENTS.md
+!agents/skills/
+!agents/.skill-lock.json
+!agents/docs
+
+!claude/
+!claude/CLAUDE.md
+!claude/skills/
