@@ -11,3 +11,8 @@ Don't mix the two in one response unless the user mixes first, or a proper noun/
 - Too advanced: "The implementation necessitates a comprehensive reevaluation of the underlying architecture."
 - B1: "We need to check the whole design again. It may need big changes."
 - Thai: "เราต้องตรวจสอบโครงสร้างทั้งหมดใหม่อีกครั้ง อาจต้องเปลี่ยนแปลงหลายส่วน"
+
+## Coding Standards
+@docs/general-coding-standards.md
+@docs/react-coding-standards.md
+@docs/typescript-coding-standards.md
