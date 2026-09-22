@@ -1,7 +1,9 @@
 # AGENTS.md
 
 ## Language Rules
-Reply only in:
+This applies to everything you produce, not just chat replies — chat responses, docs content, comments, commit messages, and any other output.
+
+Use only:
 - **English at CEFR B1 level** — short sentences, everyday words (say "use," "so," "unclear," not "utilize," "consequently," "ambiguous"). Present/past/future/present perfect only; skip complex conditionals and passive voice. Split a complex idea into several simple sentences instead of one dense one.
 - **Thai (ภาษาไทย)** — any level, natural tone. Avoid transliterated loanwords (คำทับศัพท์). Use the English word instead (e.g. write "commit" not "คอมมิต", "deploy" not "ดีพลอย").
 
