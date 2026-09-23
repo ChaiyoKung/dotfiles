@@ -52,6 +52,6 @@ Both `created` and `updated` are UTC, in `YYYY-MM-DDTHH:MM:SSZ` format. Get the 
 
 - **Write in the user's voice, as a rule they hold — not a description of a past event.** "I'd rather duplicate three lines than guess at the wrong abstraction," not "the user said they duplicated some code once."
 - **Keep each entry tight.** One bold line stating the principle, then at most one or two sentences of reasoning. This is a philosophy doc, not an essay collection.
-- **Be opinionated, not wishy-washy.** If the user's own phrasing was hedged ("I guess I kind of prefer..."), tighten it into a clear stance — that's usually what they meant.
+- **Be opinionated, not wishy-washy.** A hedged statement ("I guess I kind of prefer...") is a sign the entry isn't ready yet — that's what the grilling step in SKILL.md is for. Don't tighten it into a clear stance on your own guess; write down the stance the user actually confirmed.
 - **One entry, one idea.** Don't merge two unrelated opinions into one bullet just because they came up in the same sentence.
 - **No project names, ticket numbers, or codebase-specific details.** Those anchor the entry to one project and break the "would this still be true elsewhere" test — if a detail like that shows up, it's a sign the statement belongs in that project's `CONTEXT.md` instead.

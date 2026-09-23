@@ -27,11 +27,17 @@ If a statement is ambiguous between "mindset" and "project fact," ask the user w
 
 ## Capture it two ways
 
-**Passively, during normal conversation.** The moment the user states a general opinion or rule about how they like to build software, write it into the right topic file right there — don't wait to be asked, and don't batch it up for later. This mirrors how the domain-modeling skill captures glossary terms the instant they're resolved. After writing it, say in one short line what file you added it to, so the user can correct you if you misread it or filed it under the wrong topic.
+**Passively, during normal conversation.** The moment the user states a general opinion or rule about how they like to build software, start capturing it right there — don't wait to be asked, and don't batch it up for later. This mirrors how the domain-modeling skill captures glossary terms the instant they're resolved. If it's a brand-new entry, grill it first (see below), then write it, and say in one short line what file you added it to, so the user can correct you if you misread it or filed it under the wrong topic.
 
-**On request.** When the user directly asks you to write, update, review, or read the doc, open the relevant file(s) under `~/.agents/docs/mindset/` and do exactly that — add the new entry, edit an existing one, or read files back to them. If they ask for the whole thing and there are several files, list the folder first so you don't miss one.
+**On request.** When the user directly asks you to write, update, review, or read the doc, open the relevant file(s) under `~/.agents/docs/mindset/` and do exactly that — add the new entry (grilling it first, see below), edit an existing one, or read files back to them. If they ask for the whole thing and there are several files, list the folder first so you don't miss one.
 
 Before adding a new entry, skim the existing files for something that already covers the same ground — don't assume the current topic file is the only place it could be. If the new statement refines, contradicts, or narrows an existing entry, edit that entry in place instead of appending a near-duplicate. If it flatly contradicts an older entry, point that out to the user and ask which one still holds before you write anything.
+
+## Grill every new entry before you write it
+
+A mindset entry is meant to outlive this conversation — it travels into every future project, in the user's own voice, as something they stand behind. That's a high bar for a single offhand sentence to clear. So before writing any **brand-new** entry (not when you're just editing or narrowing one that's already on file), invoke the `grilling` skill on the statement itself, using the statement as the seed of the design tree: what makes this true for them, does it hold in every language and project or only some, what's the sharpest way to say it, what's the exception that would break it.
+
+Let grilling size itself to the statement — a simple, already-sharp opinion may clear its frontier in a single round; a sweeping claim ("I always write tests first") may need a few rounds to find its real boundaries. Only write the entry once the frontier is empty and the user has confirmed the sharpened wording — write that sharpened version to the file, not the user's original phrasing. This replaces guessing at the right tightening on your own; let the user's own answers do that work instead.
 
 ## Format
 
