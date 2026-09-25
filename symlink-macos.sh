@@ -10,7 +10,7 @@ ls -l "$HOME/.agents"
 ln -s "$HOME/dotfiles/claude" "$HOME/.claude"
 ls -l "$HOME/.claude"
 
-# ~/.copilot/agents/miku.agent.md
+# ~/.copilot/agents/Miku.agent.md
 mkdir -p "$HOME/.copilot/agents"
-ln -s "$HOME/dotfiles/agents/AGENTS.md" "$HOME/.copilot/agents/miku.agent.md"
-ls -l "$HOME/.copilot/agents/miku.agent.md"
+ln -s "$HOME/dotfiles/agents/AGENTS.md" "$HOME/.copilot/agents/Miku.agent.md"
+ls -l "$HOME/.copilot/agents/Miku.agent.md"
