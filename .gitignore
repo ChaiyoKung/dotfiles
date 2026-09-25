@@ -17,3 +17,4 @@
 !claude/skills/**
 
 !symlink-windows.ps1
+!symlink-macos.sh
