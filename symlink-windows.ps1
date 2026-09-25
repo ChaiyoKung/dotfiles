@@ -6,6 +6,10 @@
 New-Item -ItemType SymbolicLink -Target "$HOME\dotfiles\agents" -Path "$HOME\.agents"
 Get-Item "$HOME\.agents" | Select-Object Target, LinkType, FullName
 
+# ~\.claude
+New-Item -ItemType SymbolicLink -Target "$HOME\dotfiles\claude" -Path "$HOME\.claude"
+Get-Item "$HOME\.claude" | Select-Object Target, LinkType, FullName
+
 # ~\.copilot\agents\miku.agent.md
 New-Item -ItemType Directory -Path "$HOME\.copilot\agents"
 New-Item -ItemType SymbolicLink -Target "$HOME\dotfiles\agents\AGENTS.md" -Path "$HOME\.copilot\agents\miku.agent.md"
