@@ -3,10 +3,10 @@
 # If the link already exists, remove it first.
 
 # ~\.agents
-New-Item -ItemType SymbolicLink -Path "$HOME\.agents" -Target "$HOME\dotfiles\agents"
-Get-Item "$HOME\.agents" | Select-Object FullName, LinkType, Target
+New-Item -ItemType SymbolicLink -Target "$HOME\dotfiles\agents" -Path "$HOME\.agents"
+Get-Item "$HOME\.agents" | Select-Object Target, LinkType, FullName
 
 # ~\.copilot\agents\miku.agent.md
 New-Item -ItemType Directory -Path "$HOME\.copilot\agents"
-New-Item -ItemType SymbolicLink -Path "$HOME\.copilot\agents\miku.agent.md" -Target "$HOME\dotfiles\agents\AGENTS.md"
-Get-Item "$HOME\.copilot\agents\miku.agent.md" | Select-Object FullName, LinkType, Target
+New-Item -ItemType SymbolicLink -Target "$HOME\dotfiles\agents\AGENTS.md" -Path "$HOME\.copilot\agents\miku.agent.md"
+Get-Item "$HOME\.copilot\agents\miku.agent.md" | Select-Object Target, LinkType, FullName
