@@ -15,3 +15,5 @@
 !claude/CLAUDE.md
 !claude/skills/
 !claude/skills/**
+
+!symlink-windows.ps1
