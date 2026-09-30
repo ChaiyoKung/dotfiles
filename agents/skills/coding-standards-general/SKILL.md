@@ -1,6 +1,6 @@
 ---
 name: coding-standards-general
-description: 'Use this whenever you are about to write new code, edit existing code, fix a bug, add a test, or review a diff or PR, in any programming language - even if the user never says "coding standards" or "style guide." Applies general principles: clear naming, DRY vs readability tradeoffs (rule of three), no magic numbers/strings, guard clauses, explicit error handling, and F.I.R.S.T./AAA test structure. Pair with the coding-standards-react / coding-standards-typescript skills when the language matches.'
+description: 'Use this whenever you are about to write new code, edit existing code, fix a bug, add a test, or review a diff or PR, in any programming language - even if the user never says "coding standards" or "style guide." Applies general principles: clear naming, DRY vs readability tradeoffs (rule of three), no magic numbers/strings, always using a date library (dayjs in JS/TS) instead of hand-written date/time logic, guard clauses, explicit error handling, and F.I.R.S.T./AAA test structure. Pair with the coding-standards-react / coding-standards-typescript skills when the language matches.'
 ---
 
 # General Coding Standards
@@ -16,6 +16,7 @@ Basic habits that make code easy to read and clear on its own.
 - **KISS (Keep It Simple, Stupid):** Keep the logic simple. Don't add anything you don't need.
 - **DRY (Don't Repeat Yourself), but readability first:** Reducing duplicate code is good, but easy-to-read code for humans matters more. Duplicated code that stays clear is fine. Don't force a shared function if it makes the code harder to read.
 - **No Magic Values:** Move strange numbers or strings (Magic Numbers/Strings) into constants or enums. This doesn't apply to a literal that's already self-explanatory and only repeats once or twice (e.g. a short `"draft:"` prefix used in two functions) — extract it once it either repeats enough to risk drifting, or its meaning isn't obvious from the literal itself.
+- **Dates and Times Use a Library:** Don't write date or time logic by hand. See "Dates and Times" below.
 - **Useful Comments:** Comments should explain **"why"** you chose an approach, not **"what"** the code does.
 - **Boy Scout Rule:** "Leave the code cleaner than you found it." Clean up old code when you get the chance.
 
@@ -308,6 +309,17 @@ More patterns like this (several explicit functions vs. one over-parameterized f
 | Does the function take more than 1-2 boolean flags to fork its behavior?           | Risk of over-abstraction — split the function instead | Fine                                                      |
 | Does using the shared version mean opening a second definition and mentally substituting parameters back in? | Locality wins — keep it explicit, even if that means duplication | Fine to share |
 
+### Dates and Times
+
+Use a date library for any calendar, timezone, or format work. Don't write it by hand, and don't use native APIs like `Intl` or `Temporal` for it.
+
+- **JS/TS:** use `dayjs`.
+- **Other languages:** use the best-fit date library for that language.
+- **A date library is already in the project:** use it for everything, even simple tasks. One tool keeps the code the same everywhere.
+- **The project has no date library:** `Date.now()` and comparing raw timestamps are fine. Anything about calendar, timezone, or format still needs a library, so add one.
+
+**Why:** hand-written date code is hard to read, and it hides many edge cases (DST, leap years, month lengths, timezones). A library keeps the code clear and correct. Native APIs are still harder to read than a library.
+
 ---
 
 ## 2. Architecture & Error Handling
@@ -316,7 +328,7 @@ Structuring work and handling errors properly to improve system stability.
 
 - **Single Responsibility Principle (SRP):** Each function or module should do exactly one thing.
 - **Guard Clauses (Early Return):** Check and rule out invalid conditions immediately to reduce nested `if-else` depth (avoid the "Arrow Anti-Pattern").
-- **Proper Error Handling:** Handle exceptions explicitly. Avoid empty `catch` blocks or silently swallowing errors.
+- **Proper Error Handling:** Handle exceptions explicitly. Avoid empty `catch` blocks or silently swallowing errors. For the full rules (main path vs best-effort path, log levels, `safe` naming, and calls to external APIs), use the coding-standards-error-handling skill.
 
 ### ❌ Don't: Nest Conditions and Swallow Errors
 

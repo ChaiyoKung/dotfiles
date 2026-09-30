@@ -1,6 +1,6 @@
 ---
 name: coding-standards-typescript
-description: 'Use this whenever writing or editing TypeScript (.ts/.tsx) code, or setting up/adjusting eslint.config.js, .prettierrc, tsconfig.json, or Husky/lint-staged git hooks - even if the user never says "TypeScript standards." Covers naming casing conventions (PascalCase for types/interfaces/classes, camelCase for variables/functions, UPPER_SNAKE_CASE for true constants, `error` not `err`), named exports over `export default`, extracting error messages into a shared helper, and a recommended ESLint flat config + Prettier setup. Pair with the coding-standards-general skill for naming intent, DRY, and error-handling principles that apply beyond TypeScript, and coding-standards-react for React/JSX-specific patterns like Props typing.'
+description: 'Use this whenever writing or editing TypeScript (.ts/.tsx) code, or setting up/adjusting eslint.config.js, .prettierrc, tsconfig.json, or Husky/lint-staged git hooks - even if the user never says "TypeScript standards." Covers naming casing conventions (PascalCase for types/interfaces/classes, camelCase for variables/functions, UPPER_SNAKE_CASE for true constants, `error` not `err`), named exports over `export default`, `interface extends` only when adding fields (otherwise a `type` alias), extracting error messages into a shared helper, and a recommended ESLint flat config + Prettier setup. Pair with the coding-standards-general skill for naming intent, DRY, and error-handling principles that apply beyond TypeScript, and coding-standards-react for React/JSX-specific patterns like Props typing.'
 ---
 
 # TypeScript Coding Standards
@@ -81,7 +81,28 @@ try {
 
 ---
 
-## 4. Automated Tooling (Linters & Formatters)
+## 4. `interface extends` vs `type` Alias
+
+**Rule:** Use `interface X extends Y` only when you add fields to `Y`. When the shape is exactly the same as `Y`, use `type X = Y`.
+
+```ts
+// ❌ Don't: extends, but nothing is added
+interface AdminUser extends User {}
+
+// ✅ Do: the same shape, so use an alias
+type AdminUser = User;
+
+// ✅ Do: extends adds something
+interface AdminUser extends User {
+  permissions: string[];
+}
+```
+
+**Why:** the keyword shows the intent. `extends` says "this adds something," and `=` says "this is the same." Code should explain itself.
+
+---
+
+## 5. Automated Tooling (Linters & Formatters)
 
 Using automated tools to enforce code standards, instead of relying only on manual review.
 

@@ -1,6 +1,6 @@
 ---
 name: coding-standards-react
-description: 'Use this whenever writing, editing, or reviewing a React component, hook, or JSX/TSX file - e.g. "add a component," "fix this hook," "why does this re-render," "split this component" - even if the user never says "React standards." Covers file/folder structure by feature, component size and responsibility, composition vs prop-explosion, custom hooks, useEffect discipline and dependency arrays, rules of hooks, compound components, container/presentational split, state management and lifting state, props design, list keys, controlled vs uncontrolled inputs, performance optimization, and behavior-based testing. Pair with the coding-standards-general and coding-standards-typescript skills for full coverage.'
+description: 'Use this whenever writing, editing, or reviewing a React component, hook, or JSX/TSX file - e.g. "add a component," "fix this hook," "why does this re-render," "split this component" - even if the user never says "React standards." Covers file/folder structure by feature, component size and responsibility (including when to extract JSX into a named component, and keeping look inside vs placement outside), composition vs prop-explosion, custom hooks, useEffect discipline and dependency arrays, rules of hooks, compound components, container/presentational split, state management and lifting state, props design, list keys, controlled vs uncontrolled inputs, performance optimization, and behavior-based testing. Pair with the coding-standards-general and coding-standards-typescript skills for full coverage.'
 ---
 
 # React Coding Standards
@@ -69,6 +69,54 @@ UserPage
 
 > Don't split a component just because it crosses 200 lines. If it still has one responsibility and is easy to follow, leave it.
 
+### ✅ Do: Extract JSX into a Named Component So the Parent Reads Like a Table of Contents
+
+```tsx
+// ✅ The parent shows what the page has. Each name says what the part is.
+function ProfilePage() {
+  return (
+    <>
+      <ProfileHeader />
+      <ProfileStats />
+      <RecentActivity />
+    </>
+  );
+}
+```
+
+**Why:** the name tells the reader what the part is, without reading its markup. Readability decides this, not file length and not reuse. A component used only once is fine. Reuse is only a bonus.
+
+### ❌ Don't: Extract a Short JSX Element That Already Says What It Is
+
+```tsx
+// ❌ Adds a name and a file, but no meaning
+function PageDivider() {
+  return <Divider />;
+}
+```
+
+**Exception:** an element with many props that change it from its default look (for example a `<Text>` with a long list of size, color, and weight props). Then a named component is worth it, because the name explains the styling.
+
+### ✅ Do: Keep the Look Inside, Let the Parent Decide Placement
+
+```tsx
+// ✅ Look (color, padding, radius, blur) lives inside the component
+export interface FloatingCardProps {
+  children: ReactNode;
+}
+
+export function FloatingCard({ children }: FloatingCardProps) {
+  return <div className="rounded-xl bg-white/70 p-4 backdrop-blur">{children}</div>;
+}
+
+// ✅ Placement (pos, top, left, right, zIndex) comes from outside
+<div className="absolute right-4 top-4 z-10">
+  <FloatingCard>...</FloatingCard>
+</div>;
+```
+
+**Why:** the component looks the same everywhere, and it does not need to know its surroundings. You can move it anywhere without editing it.
+
 ---
 
 ## 3. Composition
@@ -108,6 +156,8 @@ Composition builds complex UI by combining smaller components, instead of one co
 ```
 
 **Why it's bad:** five boolean props already means 2⁵ = 32 possible combinations, some meaningless or contradictory.
+
+The same is true for a "super component" that wraps many controls and needs a long props list to wire them. That list only copies the parent's state and handlers. Keep the small controls visible in the parent, and wrap only the part that has one clear job.
 
 ---
 
@@ -401,7 +451,9 @@ export function MyComponent({ name }: MyComponentProps) {
 }
 ```
 
-**Why:** other files can import the props type directly, and the component's contract is clear without reading its body — reusable and self-documenting, the same way exported types work anywhere else in TypeScript.
+Every component that takes props has a props type named `{ComponentName}Props`.
+
+**Why:** the name links the type to its component, so nobody needs to search for what the props are. Other files can import the props type directly, and the component's contract is clear without reading its body — reusable and self-documenting, the same way exported types work anywhere else in TypeScript.
 
 ### ✅ Do: Use Enum-like Props for Mutually Exclusive Variations
 
