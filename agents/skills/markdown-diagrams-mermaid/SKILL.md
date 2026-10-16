@@ -9,6 +9,19 @@ description: Use this every time you draw a diagram inside a .md file — a flow
 
 When a `.md` file needs a diagram, write it as a fenced ```mermaid``` code block. Do not draw it with ASCII art (lines made of `-`, `|`, `+`, `>`, boxes made of characters).
 
+## Always add the front matter
+
+Start every mermaid block with this front matter, before the diagram type line:
+
+```markdown
+---
+config:
+  layout: dagre
+---
+```
+
+It sets the layout engine to `dagre`. The layout setting applies to flowchart, class, ER, and state diagrams. Sequence diagrams and Gantt charts do not use a layout engine, so you can skip it for them.
+
 ## Why this matters
 
 - **It renders as a real picture.** GitHub, GitLab, and most Markdown viewers turn a mermaid block into an actual diagram with boxes and arrows. ASCII art stays as plain text — the reader has to imagine the shape.
@@ -35,6 +48,10 @@ If you are not sure which type fits, ask: "Is this about **time and order** (thi
 **Flowchart** — a process or architecture:
 
 ```mermaid
+---
+config:
+  layout: dagre
+---
 flowchart TD
     A[User submits form] --> B{Valid input?}
     B -->|Yes| C[Save to database]
@@ -58,6 +75,10 @@ sequenceDiagram
 **Class diagram** — structure of code:
 
 ```mermaid
+---
+config:
+  layout: dagre
+---
 classDiagram
     class Order {
         +String id
@@ -74,6 +95,10 @@ classDiagram
 **ER diagram** — data model:
 
 ```mermaid
+---
+config:
+  layout: dagre
+---
 erDiagram
     CUSTOMER ||--o{ ORDER : places
     ORDER ||--|{ ORDER_ITEM : contains
@@ -83,6 +108,10 @@ erDiagram
 **State diagram** — a state machine:
 
 ```mermaid
+---
+config:
+  layout: dagre
+---
 stateDiagram-v2
     [*] --> Pending
     Pending --> Approved : approve()
@@ -103,12 +132,16 @@ stateDiagram-v2
 
 **✅ Do** (Mermaid)
 
-```markdown
+````markdown
 ```mermaid
+---
+config:
+  layout: dagre
+---
 flowchart LR
     Client --> API --> Database
 ```
-```
+````
 
 ## Keep the syntax correct
 
